@@ -1,0 +1,22 @@
+# Frontend
+**/node_modules/
+**/dist/
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Backend
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.suo
+**/App_Data/
+
+# IDEs & System
+.vscode/
+.idea/
+.gemini/
+.DS_Store
+Thumbs.db
+node-dist/
