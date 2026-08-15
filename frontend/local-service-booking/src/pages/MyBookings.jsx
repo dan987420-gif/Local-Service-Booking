@@ -25,10 +25,10 @@ export const MyBookings = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 fade-in">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">My Service Bookings</h1>
-        <p className="text-xs text-slate-500">Track and manage all your requested service bookings</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">My Service Bookings</h1>
+        <p className="text-xs text-slate-500 dark:text-slate-400">Track and manage all your requested service bookings</p>
       </div>
 
       {/* Filter Tabs */}
@@ -37,10 +37,10 @@ export const MyBookings = () => {
           <button
             key={st}
             onClick={() => setFilterStatus(st)}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
               filterStatus === st
                 ? 'bg-indigo-600 text-white shadow-xs'
-                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
             }`}
           >
             {st}

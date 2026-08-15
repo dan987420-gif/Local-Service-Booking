@@ -48,9 +48,9 @@ export const ServicesPage = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       
       {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-extrabold text-slate-900">Explore Local Services</h1>
-        <p className="text-xs text-slate-500">Book verified local professionals with upfront pricing</p>
+      <div className="space-y-2 fade-in">
+        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Explore Local Services</h1>
+        <p className="text-xs text-slate-500 dark:text-slate-400">Book verified local professionals with upfront pricing</p>
       </div>
 
       {/* Search & Category Filter */}
@@ -75,10 +75,10 @@ export const ServicesPage = () => {
                 if (newCat) setSearchParams({ category: newCat });
                 else setSearchParams({});
               }}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
                 (cat === 'All' && !selectedCategory) || selectedCategory === cat
                   ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                  : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
               }`}
             >
               {cat}

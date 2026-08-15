@@ -11,45 +11,45 @@ export const BookingCard = ({ booking, role = 'Customer' }) => {
   });
 
   return (
-    <div className="sc-card p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="sc-card-3d p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors duration-200">
       <div className="space-y-2">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-bold text-slate-400">#BK-{booking.bookingId}</span>
+         <div className="flex items-center gap-3">
+          <span className="text-xs font-bold text-slate-400 dark:text-slate-500">#BK-{booking.bookingId}</span>
           <StatusBadge status={booking.status} />
-          <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200/50 dark:border-slate-700/50 transition-colors">
             {booking.serviceCategory}
           </span>
         </div>
 
-        <h4 className="text-base font-bold text-slate-900">{booking.serviceTitle}</h4>
+        <h4 className="text-base font-bold text-slate-900 dark:text-white">{booking.serviceTitle}</h4>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600 font-medium">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-400 font-medium">
           <span className="flex items-center gap-1">
-            <User className="w-3.5 h-3.5 text-slate-400" />
+            <User className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
             {role === 'Provider' ? `Customer: ${booking.customerName}` : `Provider: ${booking.businessName || booking.providerName}`}
           </span>
 
           <span className="flex items-center gap-1">
-            <Calendar className="w-3.5 h-3.5 text-slate-400" />
+            <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
             {dateFormatted}
           </span>
 
           <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-slate-400" />
+            <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
             {booking.scheduledTime}
           </span>
 
           <span className="flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5 text-slate-400" />
+            <MapPin className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
             {booking.city}
           </span>
         </div>
       </div>
 
-      <div className="flex items-center justify-between md:flex-col md:items-end gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100 shrink-0">
+      <div className="flex items-center justify-between md:flex-col md:items-end gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800 shrink-0">
         <div>
-          <span className="text-[10px] text-slate-400 font-medium block md:text-right">Total Amount</span>
-          <span className="text-lg font-extrabold text-slate-900">${booking.totalPrice}</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold block md:text-right uppercase tracking-wider">Total Amount</span>
+          <span className="text-lg font-extrabold text-slate-900 dark:text-white">${booking.totalPrice}</span>
         </div>
 
         <Link

@@ -26,16 +26,17 @@ export const CustomerDashboard = () => {
   const pendingBookings = bookings.filter((b) => b.status === 'Pending').length;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 fade-in">
       
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 to-indigo-800 text-white rounded-2xl p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <span className="text-xs font-semibold text-indigo-300 uppercase tracking-wider">Customer Portal</span>
-          <h1 className="text-2xl font-bold mt-1">Hello, {user?.fullName || 'Customer'} 👋</h1>
+      <div className="bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-indigo-900/30 flex flex-col md:flex-row md:items-center justify-between gap-4 relative overflow-hidden transition-colors">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.1),transparent_60%)]"></div>
+        <div className="relative z-10">
+          <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider bg-indigo-500/20 border border-indigo-400/20 px-2 py-0.5 rounded-full">Customer Portal</span>
+          <h1 className="text-2xl font-bold mt-2">Hello, {user?.fullName || 'Customer'} 👋</h1>
           <p className="text-xs text-indigo-200 mt-1">Manage your active bookings, request new services, and view service status.</p>
         </div>
-        <Link to="/services" className="btn-secondary text-xs shadow-sm py-2.5 px-4 shrink-0">
+        <Link to="/services" className="btn-secondary text-xs shadow-sm py-2.5 px-4 shrink-0 relative z-10">
           <Plus className="w-4 h-4" />
           Book New Service
         </Link>
@@ -76,8 +77,8 @@ export const CustomerDashboard = () => {
       {/* Recent Bookings Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900">Recent Bookings</h2>
-          <Link to="/my-bookings" className="text-xs font-bold text-indigo-600 hover:text-indigo-800">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Recent Bookings</h2>
+          <Link to="/my-bookings" className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
             View All Bookings
           </Link>
         </div>

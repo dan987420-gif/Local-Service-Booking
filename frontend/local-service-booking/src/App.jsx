@@ -85,7 +85,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
 // Layout for Public Pages
 const PublicLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
       <Navbar />
       <main className="flex-1">
         <Outlet />
@@ -98,11 +98,11 @@ const PublicLayout = () => {
 // Layout for Protected Dashboards
 const DashboardLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
       <Navbar />
       <div className="flex flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6">
         <Sidebar />
-        <main className="flex-1 min-w-0 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 overflow-x-auto">
+        <main className="flex-1 min-w-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 overflow-x-auto transition-colors duration-200">
           <Outlet />
         </main>
       </div>

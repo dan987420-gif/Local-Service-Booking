@@ -44,10 +44,10 @@ export const KYCManagement = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 fade-in">
       <div>
-        <h1 className="text-xl font-bold text-slate-900">Provider Verification (KYC)</h1>
-        <p className="text-xs text-slate-500 mt-1">Review trade licenses, certifications, and identities submitted by providers to verify profiles.</p>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white">Provider Verification (KYC)</h1>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Review trade licenses, certifications, and identities submitted by providers to verify profiles.</p>
       </div>
 
       {providers.length === 0 ? (
@@ -58,50 +58,50 @@ export const KYCManagement = () => {
       ) : (
         <div className="space-y-4">
           {providers.map((p) => (
-            <div key={p.providerId} className="sc-card p-5 border border-slate-200 shadow-sm space-y-4">
+            <div key={p.providerId} className="sc-card-3d p-5 border border-slate-200 dark:border-slate-805 shadow-sm space-y-4 transition-colors">
               
               {/* Header: Provider Name and Category */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3 transition-colors">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 flex items-center justify-center text-indigo-700 dark:text-indigo-400 font-bold text-xs shrink-0 transition-colors">
                     {p.fullName.substring(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-950">{p.fullName}</h3>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{p.email} • {p.phone || 'No phone'}</p>
+                    <h3 className="text-sm font-bold text-slate-950 dark:text-white">{p.fullName}</h3>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{p.email} • {p.phone || 'No phone'}</p>
                   </div>
                 </div>
 
-                <span className="bg-teal-50 text-teal-800 text-[10px] font-bold px-2.5 py-1 rounded border border-teal-100 uppercase tracking-wide">
+                <span className="bg-teal-50 dark:bg-teal-950/20 text-teal-800 dark:text-teal-400 text-[10px] font-bold px-2.5 py-1 rounded border border-teal-100 dark:border-teal-900/30 uppercase tracking-wide transition-colors">
                   {p.category}
                 </span>
               </div>
 
               {/* Provider Profile summary info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs text-slate-600 bg-slate-50 border border-slate-100 p-4 rounded-xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-750 p-4 rounded-xl transition-colors">
                 <div>
-                  <span className="font-bold text-slate-500 block mb-0.5">Business Name</span>
-                  <p className="font-semibold text-slate-800">{p.businessName}</p>
+                  <span className="font-bold text-slate-500 dark:text-slate-400 block mb-0.5">Business Name</span>
+                  <p className="font-semibold text-slate-800 dark:text-slate-200">{p.businessName}</p>
                 </div>
                 <div>
-                  <span className="font-bold text-slate-500 block mb-0.5">Rate / Experience</span>
-                  <p className="font-semibold text-slate-800">${p.hourlyRate}/hr • {p.experienceYears} Years Exp</p>
+                  <span className="font-bold text-slate-500 dark:text-slate-400 block mb-0.5">Rate / Experience</span>
+                  <p className="font-semibold text-slate-800 dark:text-slate-200">${p.hourlyRate}/hr • {p.experienceYears} Years Exp</p>
                 </div>
                 <div>
-                  <span className="font-bold text-slate-500 block mb-0.5">Location</span>
-                  <p className="font-semibold text-slate-800">{p.city}, {p.state} {p.zipCode}</p>
+                  <span className="font-bold text-slate-500 dark:text-slate-400 block mb-0.5">Location</span>
+                  <p className="font-semibold text-slate-800 dark:text-slate-200">{p.city}, {p.state} {p.zipCode}</p>
                 </div>
                 {p.bio && (
-                  <div className="sm:col-span-2 md:col-span-3 border-t border-slate-200/50 pt-2 mt-2">
-                    <span className="font-bold text-slate-500 block mb-0.5">Profile Bio</span>
-                    <p className="text-slate-600 italic leading-relaxed">{p.bio}</p>
+                  <div className="sm:col-span-2 md:col-span-3 border-t border-slate-200/50 dark:border-slate-700/50 pt-2 mt-2">
+                    <span className="font-bold text-slate-500 dark:text-slate-400 block mb-0.5">Profile Bio</span>
+                    <p className="text-slate-605 dark:text-slate-300 italic leading-relaxed">{p.bio}</p>
                   </div>
                 )}
               </div>
 
               {/* Uploaded Documents List */}
               <div className="space-y-2 text-xs">
-                <span className="font-bold text-slate-950 block">Documents for Review</span>
+                <span className="font-bold text-slate-950 dark:text-white block">Documents for Review</span>
                 
                 <div className="flex flex-wrap gap-3">
                   {p.identityDocUrl ? (
@@ -109,14 +109,14 @@ export const KYCManagement = () => {
                       href={p.identityDocUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-outline py-1.5 px-3 flex items-center gap-1.5 hover:bg-slate-100"
+                      className="btn-outline py-1.5 px-3 flex items-center gap-1.5 hover:bg-slate-100 dark:hover:bg-slate-800"
                     >
-                      <FileText className="w-4 h-4 text-indigo-500" />
+                      <FileText className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
                       Government ID card
-                      <ExternalLink className="w-3 h-3 text-slate-400" />
+                      <ExternalLink className="w-3 h-3 text-slate-400 dark:text-slate-550" />
                     </a>
                   ) : (
-                    <span className="text-slate-400 italic">No identity doc uploaded</span>
+                    <span className="text-slate-400 dark:text-slate-500 italic">No identity doc uploaded</span>
                   )}
 
                   {p.certificateUrl ? (
@@ -124,30 +124,30 @@ export const KYCManagement = () => {
                       href={p.certificateUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-outline py-1.5 px-3 flex items-center gap-1.5 hover:bg-slate-100"
+                      className="btn-outline py-1.5 px-3 flex items-center gap-1.5 hover:bg-slate-100 dark:hover:bg-slate-805"
                     >
-                      <ShieldCheck className="w-4 h-4 text-teal-600" />
+                      <ShieldCheck className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                       Trade Certificate
-                      <ExternalLink className="w-3 h-3 text-slate-400" />
+                      <ExternalLink className="w-3 h-3 text-slate-400 dark:text-slate-550" />
                     </a>
                   ) : (
-                    <span className="text-slate-400 italic">No certificate uploaded</span>
+                    <span className="text-slate-400 dark:text-slate-500 italic">No certificate uploaded</span>
                   )}
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 text-xs">
+              <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs transition-colors">
                 <button
                   onClick={() => handleVerify(p.providerId, 'Rejected')}
-                  className="btn-danger py-1.5 px-3.5 flex items-center gap-1"
+                  className="btn-danger py-1.5 px-3.5 flex items-center gap-1 text-white"
                 >
                   <X className="w-4 h-4" />
                   Reject Request
                 </button>
                 <button
                   onClick={() => handleVerify(p.providerId, 'Verified')}
-                  className="btn-secondary py-1.5 px-3.5 flex items-center gap-1"
+                  className="btn-secondary py-1.5 px-3.5 flex items-center gap-1 text-white"
                 >
                   <Check className="w-4 h-4" />
                   Verify Account

@@ -110,28 +110,30 @@ export const BookingDetails = () => {
   if (error || !booking) return <div className="p-8 text-center"><ErrorMessage message={error || 'Booking not found.'} /></div>;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 fade-in">
       
-      <Link to={role === 'Provider' ? '/provider-bookings' : '/my-bookings'} className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-indigo-600">
+      <Link to={role === 'Provider' ? '/provider-bookings' : '/my-bookings'} className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
         <ArrowLeft className="w-4 h-4" />
         Back to Bookings
       </Link>
 
-      <div className="sc-card p-6 space-y-6">
+      <div className="sc-card-3d p-6 space-y-6 transition-colors">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4 transition-colors">
           <div>
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-slate-400">Booking #BK-{booking.bookingId}</span>
+              <span className="text-xs font-bold text-slate-400 dark:text-slate-500">Booking #BK-{booking.bookingId}</span>
               <StatusBadge status={booking.status} />
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200/50 dark:border-slate-700/50 transition-colors">
+                {booking.serviceCategory} Category
+              </span>
             </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 mt-1">{booking.serviceTitle}</h1>
-            <p className="text-xs text-slate-500 font-medium">{booking.serviceCategory} Category</p>
+            <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white mt-2 leading-none">{booking.serviceTitle}</h1>
           </div>
 
           <div className="flex items-center gap-2">
             <Link to={`/customer-chat?bookingId=${booking.bookingId}`} className="btn-outline text-xs py-2 px-3">
-              <MessageSquare className="w-4 h-4 text-indigo-600" />
+              <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-450" />
               Chat
             </Link>
             <Link to={`/live-tracking?bookingId=${booking.bookingId}`} className="btn-secondary text-xs py-2 px-3">
@@ -142,42 +144,42 @@ export const BookingDetails = () => {
         </div>
 
         {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-700">
-          <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Appointment Details</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-700 dark:text-slate-300">
+          <div className="space-y-3 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors">
+            <h4 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">Appointment Details</h4>
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-indigo-600" />
+              <Calendar className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span>Date: {new Date(booking.bookingDate).toLocaleDateString()}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-indigo-600" />
+              <Clock className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span>Scheduled Time: {booking.scheduledTime}</span>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-indigo-600" />
+              <MapPin className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span>Location: {booking.address}, {booking.city}</span>
             </div>
           </div>
 
-          <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Parties Information</h4>
+          <div className="space-y-3 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors">
+            <h4 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">Parties Information</h4>
             <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-teal-600" />
+              <User className="w-4 h-4 text-teal-600 dark:text-teal-400" />
               <span>Customer: {booking.customerName} ({booking.customerPhone || booking.customerEmail})</span>
             </div>
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-teal-600" />
+              <ShieldCheck className="w-4 h-4 text-teal-600 dark:text-teal-400" />
               <span>Provider: {booking.businessName || booking.providerName} ({booking.providerPhone || 'Verified Pro'})</span>
             </div>
-            <div className="flex items-center gap-2 pt-2 border-t border-slate-200 font-bold text-sm text-slate-900">
-              <DollarSign className="w-4 h-4 text-emerald-600" />
+            <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-800 font-bold text-sm text-slate-900 dark:text-white transition-colors">
+              <DollarSign className="w-4 h-4 text-emerald-600 dark:text-emerald-450" />
               <span>Total Price: ${booking.totalPrice}</span>
             </div>
           </div>
         </div>
 
         {/* Action Controls */}
-        <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 transition-colors">
           
           {/* Customer Actions */}
           {role === 'Customer' && (
@@ -189,7 +191,7 @@ export const BookingDetails = () => {
               )}
 
               {booking.status === 'Completed' && !booking.hasReview && (
-                <Button variant="primary" onClick={() => setIsReviewOpen(true)} className="text-xs">
+                <Button variant="primary" onClick={() => setIsReviewOpen(true)} className="text-xs btn-glow">
                   <Star className="w-3.5 h-3.5" />
                   Write Review
                 </Button>
@@ -210,7 +212,7 @@ export const BookingDetails = () => {
                 value={statusRemarks}
                 onChange={(e) => setStatusRemarks(e.target.value)}
                 placeholder="Remarks (optional)..."
-                className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-indigo-500"
+                className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-500 transition-colors"
               />
               <div className="flex items-center gap-2">
                 {booking.status === 'Pending' && (
@@ -225,7 +227,7 @@ export const BookingDetails = () => {
                 )}
 
                 {booking.status === 'Accepted' && (
-                  <Button variant="primary" onClick={() => handleUpdateStatus('InProgress')} className="text-xs">
+                  <Button variant="primary" onClick={() => handleUpdateStatus('InProgress')} className="text-xs btn-glow">
                     Start Service
                   </Button>
                 )}
@@ -244,15 +246,15 @@ export const BookingDetails = () => {
 
       {/* Booking Timeline Section */}
       {history && history.length > 0 && (
-        <div className="sc-card p-6 space-y-4">
-          <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">
+        <div className="sc-card-3d p-6 space-y-4 transition-colors">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3 transition-colors">
             🛡 Booking Timeline & Audit Trail
           </h3>
-          <div className="relative pl-6 border-l border-slate-200 ml-3 space-y-6">
+          <div className="relative pl-6 border-l border-slate-200 dark:border-slate-800 ml-3 space-y-6">
             {history.map((log) => (
               <div key={log.historyId} className="relative">
                 {/* Bullet dot */}
-                <div className={`absolute -left-[31px] mt-1.5 w-3.5 h-3.5 rounded-full border-4 border-white shadow ${
+                <div className={`absolute -left-[31px] mt-1.5 w-3.5 h-3.5 rounded-full border-4 border-white dark:border-slate-900 shadow ${
                   log.newStatus === 'Completed' ? 'bg-emerald-600' :
                   log.newStatus === 'Cancelled' || log.newStatus === 'Rejected' ? 'bg-rose-600' :
                   log.newStatus === 'InProgress' ? 'bg-amber-500' :
@@ -262,19 +264,19 @@ export const BookingDetails = () => {
                 <div className="space-y-1">
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                      <span className="text-xs font-bold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-850 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors">
                         {log.newStatus}
                       </span>
-                      <span className="text-[10px] text-slate-400 font-medium">
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
                         by {log.changedByName} ({log.changedByRole})
                       </span>
                     </div>
-                    <span className="text-[10px] text-slate-400 font-semibold font-mono whitespace-nowrap">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold font-mono whitespace-nowrap">
                       {new Date(log.changedAt).toLocaleString()}
                     </span>
                   </div>
                   {log.remarks && (
-                    <p className="text-xs text-slate-500 italic bg-slate-50 py-1.5 px-3 rounded-lg border border-slate-100">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 italic bg-slate-50 dark:bg-slate-800/40 py-1.5 px-3 rounded-lg border border-slate-100 dark:border-slate-800 transition-colors">
                       "{log.remarks}"
                     </p>
                   )}
@@ -289,7 +291,7 @@ export const BookingDetails = () => {
       <Modal isOpen={isReviewOpen} onClose={() => setIsReviewOpen(false)} title="Submit Review">
         <form onSubmit={handleReviewSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Rating (1 to 5 Stars)</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Rating (1 to 5 Stars)</label>
             <div className="flex items-center gap-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -298,7 +300,7 @@ export const BookingDetails = () => {
                   onClick={() => setReviewRating(star)}
                   className="p-1 text-amber-500 hover:scale-110 transition-transform"
                 >
-                  <Star className={`w-6 h-6 ${star <= reviewRating ? 'fill-amber-500' : 'text-slate-200'}`} />
+                  <Star className={`w-6 h-6 ${star <= reviewRating ? 'fill-amber-500' : 'text-slate-200 dark:text-slate-700'}`} />
                 </button>
               ))}
             </div>
@@ -315,7 +317,7 @@ export const BookingDetails = () => {
 
           <div className="flex justify-end gap-2">
             <Button variant="outline" onClick={() => setIsReviewOpen(false)}>Cancel</Button>
-            <Button type="submit" loading={reviewLoading}>Submit Review</Button>
+            <Button type="submit" loading={reviewLoading} className="btn-glow">Submit Review</Button>
           </div>
         </form>
       </Modal>

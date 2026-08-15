@@ -35,12 +35,12 @@ export const AdminDashboard = () => {
   const avgRating = stats?.averageRating ?? 5.0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 fade-in">
       
       {/* Title */}
       <div>
-        <h1 className="text-xl font-bold text-slate-900">Admin Control Center</h1>
-        <p className="text-xs text-slate-500 mt-1">Monitor users, track database statistics, verify providers, and manage disputes.</p>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white">Admin Control Center</h1>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Monitor users, track database statistics, verify providers, and manage disputes.</p>
       </div>
 
       {/* KPI Cards Grid */}
@@ -79,31 +79,31 @@ export const AdminDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Verification & Disputes Shortcuts Card */}
-        <div className="sc-card p-5 space-y-4 border border-slate-200 shadow-sm">
-          <h2 className="text-sm font-bold text-slate-950">Action Desk Shortcuts</h2>
+        <div className="sc-card-3d p-5 space-y-4 border border-slate-200 dark:border-slate-800 shadow-sm transition-colors">
+          <h2 className="text-sm font-bold text-slate-950 dark:text-white">Action Desk Shortcuts</h2>
           <div className="grid grid-cols-2 gap-4">
             
             {/* KYC Pending */}
             <Link
               to="/kyc-management"
-              className="p-4 rounded-xl border border-slate-200 hover:border-indigo-400 bg-slate-50/50 hover:bg-indigo-50/10 transition-all text-center space-y-2 group"
+              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-indigo-50/10 dark:hover:bg-indigo-950/20 transition-all text-center space-y-2 group"
             >
-              <ShieldAlert className="w-6 h-6 text-indigo-600 mx-auto" />
+              <ShieldAlert className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mx-auto" />
               <div>
-                <span className="text-xl font-black text-slate-900 block">{pendingKycCount}</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">KYC Pending</span>
+                <span className="text-xl font-black text-slate-900 dark:text-white block">{pendingKycCount}</span>
+                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">KYC Pending</span>
               </div>
             </Link>
 
             {/* Complaints Desk */}
             <Link
               to="/complaint-management"
-              className="p-4 rounded-xl border border-slate-200 hover:border-red-400 bg-slate-50/50 hover:bg-red-50/10 transition-all text-center space-y-2 group"
+              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-red-400 dark:hover:border-red-500 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-red-50/10 dark:hover:bg-red-950/20 transition-all text-center space-y-2 group"
             >
-              <AlertCircle className="w-6 h-6 text-red-600 mx-auto animate-pulse" />
+              <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400 mx-auto animate-pulse" />
               <div>
-                <span className="text-xl font-black text-slate-900 block">{pendingComplaints}</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Unresolved</span>
+                <span className="text-xl font-black text-slate-900 dark:text-white block">{pendingComplaints}</span>
+                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Unresolved</span>
               </div>
             </Link>
 
@@ -111,20 +111,20 @@ export const AdminDashboard = () => {
         </div>
 
         {/* Database Quick Health Card */}
-        <div className="sc-card p-5 border border-slate-200 shadow-sm space-y-4">
-          <h2 className="text-sm font-bold text-slate-950">Database Schema Health</h2>
+        <div className="sc-card-3d p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 transition-colors">
+          <h2 className="text-sm font-bold text-slate-950 dark:text-white">Database Schema Health</h2>
           <div className="space-y-3 text-xs">
-            <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
-              <span className="text-slate-500">Active Service Offerings</span>
-              <span className="font-bold text-slate-800">{totalServices} catalog items</span>
+            <div className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800 transition-colors">
+              <span className="text-slate-500 dark:text-slate-400">Active Service Offerings</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200">{totalServices} catalog items</span>
             </div>
-            <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
-              <span className="text-slate-500">Average Platform Rating</span>
-              <span className="font-bold text-slate-800">{avgRating} ★</span>
+            <div className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800 transition-colors">
+              <span className="text-slate-500 dark:text-slate-400">Average Platform Rating</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200">{avgRating} ★</span>
             </div>
             <div className="flex items-center justify-between py-1.5">
-              <span className="text-slate-500">Active Workspace</span>
-              <span className="font-semibold text-teal-600">SQL Server (LocalServiceBooking)</span>
+              <span className="text-slate-500 dark:text-slate-400">Active Workspace</span>
+              <span className="font-semibold text-teal-600 dark:text-teal-400">SQL Server (LocalServiceBooking)</span>
             </div>
           </div>
         </div>
