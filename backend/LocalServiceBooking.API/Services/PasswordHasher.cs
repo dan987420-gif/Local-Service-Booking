@@ -30,8 +30,7 @@ namespace LocalServiceBooking.API.Services
                 var parts = storedHash.Split(':');
                 if (parts.Length != 2)
                 {
-                    // Fallback comparison for demo plaintext strings if any exist
-                    return password == storedHash;
+                    return false;
                 }
 
                 byte[] salt = Convert.FromBase64String(parts[0]);

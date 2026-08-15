@@ -199,11 +199,11 @@ GO
 -- PBKDF2 hash of "Password123!" for demo environment seeding
 INSERT INTO Users (FullName, Email, PasswordHash, Phone, Address, Role, IsActive, CreatedAt)
 VALUES 
-('System Admin', 'admin@serviceconnect.com', 'AQAAAAEAACcQAAAAEH8Z9v+Kx5m9K2g3P1Q=', '+1 555-0100', '100 Tech Blvd, Suite 400', 'Admin', 1, GETDATE()),
-('Sarah Customer', 'customer@serviceconnect.com', 'AQAAAAEAACcQAAAAEH8Z9v+Kx5m9K2g3P1Q=', '+1 555-0101', '742 Evergreen Terrace, Springfield', 'Customer', 1, GETDATE()),
-('Alex Miller (Pro Electric)', 'electrician@serviceconnect.com', 'AQAAAAEAACcQAAAAEH8Z9v+Kx5m9K2g3P1Q=', '+1 555-0102', '12 Spark Lane, Metro City', 'Provider', 1, GETDATE()),
-('David Plumbing Co', 'plumber@serviceconnect.com', 'AQAAAAEAACcQAAAAEH8Z9v+Kx5m9K2g3P1Q=', '+1 555-0103', '45 Water Street, Metro City', 'Provider', 1, GETDATE()),
-('Elena Home Cleaning', 'cleaner@serviceconnect.com', 'AQAAAAEAACcQAAAAEH8Z9v+Kx5m9K2g3P1Q=', '+1 555-0104', '89 Clean Avenue, Metro City', 'Provider', 1, GETDATE());
+('System Admin', 'admin@serviceconnect.com', '4L135bjBNTBAItZiTJPe0A==:q/39YkOs+upUWZS9CyXaZLCdgWXTqMe4dVZeIrA0LwM=', '+1 555-0100', '100 Tech Blvd, Suite 400', 'Admin', 1, GETDATE()),
+('Sarah Customer', 'customer@serviceconnect.com', '4L135bjBNTBAItZiTJPe0A==:q/39YkOs+upUWZS9CyXaZLCdgWXTqMe4dVZeIrA0LwM=', '+1 555-0101', '742 Evergreen Terrace, Springfield', 'Customer', 1, GETDATE()),
+('Alex Miller (Pro Electric)', 'electrician@serviceconnect.com', '4L135bjBNTBAItZiTJPe0A==:q/39YkOs+upUWZS9CyXaZLCdgWXTqMe4dVZeIrA0LwM=', '+1 555-0102', '12 Spark Lane, Metro City', 'Provider', 1, GETDATE()),
+('David Plumbing Co', 'plumber@serviceconnect.com', '4L135bjBNTBAItZiTJPe0A==:q/39YkOs+upUWZS9CyXaZLCdgWXTqMe4dVZeIrA0LwM=', '+1 555-0103', '45 Water Street, Metro City', 'Provider', 1, GETDATE()),
+('Elena Home Cleaning', 'cleaner@serviceconnect.com', '4L135bjBNTBAItZiTJPe0A==:q/39YkOs+upUWZS9CyXaZLCdgWXTqMe4dVZeIrA0LwM=', '+1 555-0104', '89 Clean Avenue, Metro City', 'Provider', 1, GETDATE());
 
 INSERT INTO ProviderProfiles (UserId, BusinessName, Category, Bio, ExperienceYears, HourlyRate, Address, City, State, ZipCode, IsKycVerified, Rating, TotalReviews, WalletBalance, IsAvailable, CreatedAt)
 VALUES 
