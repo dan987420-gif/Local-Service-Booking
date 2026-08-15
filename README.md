@@ -87,14 +87,7 @@ graph TD
 
 ## 🔐 Presentation Credentials
 
-For testing and demonstration, use the following sample accounts:
-
-| Role | Email Address | Password |
-|---|---|---|
-| **Customer** | `customer@serviceconnect.com` | `Password123!` |
-| **Provider (Electrician)** | `electrician@serviceconnect.com` | `Password123!` |
-| **Provider (Cleaner)** | `cleaner@serviceconnect.com` | `Password123!` |
-| **Administrator** | `admin@serviceconnect.com` | `Password123!` |
+Use a locally configured test account. Do not publish passwords in the repository.
 
 ---
 
