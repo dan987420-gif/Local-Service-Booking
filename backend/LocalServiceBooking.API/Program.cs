@@ -51,12 +51,35 @@ string ConvertPostgresUriToConnectionString(string? uriStr)
     }
 }
 
+string SanitizeSupabaseConnectionString(string? connStr)
+{
+    if (string.IsNullOrWhiteSpace(connStr)) return string.Empty;
+
+    var connectionString = ConvertPostgresUriToConnectionString(connStr);
+
+    try
+    {
+        var dbBuilder = new Npgsql.NpgsqlConnectionStringBuilder(connectionString);
+        if (dbBuilder.Host != null && dbBuilder.Host.Contains("pooler.supabase.com", StringComparison.OrdinalIgnoreCase))
+        {
+            if (dbBuilder.Username == "postgres")
+            {
+                dbBuilder.Username = "postgres.yyiptgonfedomzcttjvo";
+            }
+        }
+        return dbBuilder.ToString();
+    }
+    catch
+    {
+        return connectionString;
+    }
+}
 
 // Configure Database Connection (Supabase PostgreSQL)
 var rawSupabaseConnectionString = Environment.GetEnvironmentVariable("SUPABASE_DB_CONNECTION_STRING") 
     ?? builder.Configuration.GetConnectionString("SupabaseConnection");
 
-var supabaseConnectionString = ConvertPostgresUriToConnectionString(rawSupabaseConnectionString);
+var supabaseConnectionString = SanitizeSupabaseConnectionString(rawSupabaseConnectionString);
 
 if (string.IsNullOrWhiteSpace(supabaseConnectionString))
 {
