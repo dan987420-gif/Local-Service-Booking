@@ -1,5 +1,7 @@
 using LocalServiceBooking.API.Models;
 using LocalServiceBooking.API.Services;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace LocalServiceBooking.API.Data
 {
@@ -7,7 +9,29 @@ namespace LocalServiceBooking.API.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            context.Database.EnsureCreated();
+            if (context.Database.ProviderName == "Npgsql.EntityFrameworkCore.PostgreSQL")
+            {
+                bool tablesExist = false;
+                try
+                {
+                    _ = context.Users.FirstOrDefault();
+                    tablesExist = true;
+                }
+                catch (Exception ex) when (ex.ToString().Contains("42P01") || ex.ToString().Contains("does not exist"))
+                {
+                    tablesExist = false;
+                }
+
+                if (!tablesExist)
+                {
+                    var databaseCreator = (IRelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+            }
+            else
+            {
+                context.Database.EnsureCreated();
+            }
 
             if (context.Users.Any())
             {
