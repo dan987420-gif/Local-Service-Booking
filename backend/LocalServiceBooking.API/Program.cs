@@ -51,49 +51,21 @@ string ConvertPostgresUriToConnectionString(string? uriStr)
     }
 }
 
-// Helper function to validate Npgsql connection string
-bool IsValidNpgsqlConnectionString(string? connStr)
-{
-    if (string.IsNullOrWhiteSpace(connStr)) return false;
-    
-    if (connStr.Contains("your-project-ref") || 
-        connStr.Contains("YOUR_DATABASE_PASSWORD") || 
-        connStr.Contains("YOUR_SESSION_POOLER") ||
-        connStr.Equals("YOUR_SESSION_POOLER_CONNECTION_STRING", StringComparison.OrdinalIgnoreCase))
-    {
-        return false;
-    }
 
-    try
-    {
-        var dbBuilder = new Npgsql.NpgsqlConnectionStringBuilder(connStr);
-        return !string.IsNullOrEmpty(dbBuilder.Host);
-    }
-    catch
-    {
-        return false;
-    }
-}
-
-// Configure Database Connection (SQL Server or Supabase PostgreSQL)
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// Configure Database Connection (Supabase PostgreSQL)
 var rawSupabaseConnectionString = Environment.GetEnvironmentVariable("SUPABASE_DB_CONNECTION_STRING") 
     ?? builder.Configuration.GetConnectionString("SupabaseConnection");
 
 var supabaseConnectionString = ConvertPostgresUriToConnectionString(rawSupabaseConnectionString);
-bool isSupabaseConfigured = IsValidNpgsqlConnectionString(supabaseConnectionString);
-Console.WriteLine($"Supabase connection configured: {(isSupabaseConfigured ? "YES" : "NO")}");
+
+if (string.IsNullOrWhiteSpace(supabaseConnectionString))
+{
+    throw new InvalidOperationException("Database connection string 'SupabaseConnection' is not configured.");
+}
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    if (isSupabaseConfigured)
-    {
-        options.UseNpgsql(supabaseConnectionString);
-    }
-    else
-    {
-        options.UseSqlServer(connectionString);
-    }
+    options.UseNpgsql(supabaseConnectionString);
 });
 
 // Configure Scoped Services
