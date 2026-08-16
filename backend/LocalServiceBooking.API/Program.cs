@@ -17,11 +17,22 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
     });
 
-// Configure Database Connection (SQL Server)
+// Configure Database Connection (SQL Server or Supabase PostgreSQL)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var supabaseConnectionString = Environment.GetEnvironmentVariable("SUPABASE_DB_CONNECTION_STRING") 
+    ?? builder.Configuration.GetConnectionString("SupabaseConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+{
+    if (!string.IsNullOrEmpty(supabaseConnectionString))
+    {
+        options.UseNpgsql(supabaseConnectionString);
+    }
+    else
+    {
+        options.UseSqlServer(connectionString);
+    }
+});
 
 // Configure Scoped Services
 builder.Services.AddScoped<JwtService>();
