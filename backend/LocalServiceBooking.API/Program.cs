@@ -75,11 +75,29 @@ string SanitizeSupabaseConnectionString(string? connStr)
     }
 }
 
+string MaskConnectionString(string? connStr)
+{
+    if (string.IsNullOrWhiteSpace(connStr)) return "Empty";
+    try
+    {
+        var dbBuilder = new Npgsql.NpgsqlConnectionStringBuilder(connStr);
+        return $"Host='{dbBuilder.Host}', Port='{dbBuilder.Port}', Database='{dbBuilder.Database}', Username='{dbBuilder.Username}', Password='[MASKED]'";
+    }
+    catch
+    {
+        // Fallback if it's a URI format before conversion
+        return connStr.Contains("@") ? "[URI format with credentials]" : connStr;
+    }
+}
+
 // Configure Database Connection (Supabase PostgreSQL)
 var rawSupabaseConnectionString = Environment.GetEnvironmentVariable("SUPABASE_DB_CONNECTION_STRING") 
     ?? builder.Configuration.GetConnectionString("SupabaseConnection");
 
 var supabaseConnectionString = SanitizeSupabaseConnectionString(rawSupabaseConnectionString);
+
+Console.WriteLine($"Database Config - Raw: {MaskConnectionString(rawSupabaseConnectionString)}");
+Console.WriteLine($"Database Config - Sanitized: {MaskConnectionString(supabaseConnectionString)}");
 
 if (string.IsNullOrWhiteSpace(supabaseConnectionString))
 {
