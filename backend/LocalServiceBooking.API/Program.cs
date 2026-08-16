@@ -155,21 +155,24 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Seed Database automatically on startup
-using (var scope = app.Services.CreateScope())
+// Seed Database automatically on startup (non-blocking)
+_ = Task.Run(() =>
 {
-    var services = scope.ServiceProvider;
-    try
+    using (var scope = app.Services.CreateScope())
     {
-        var dbContext = services.GetRequiredService<ApplicationDbContext>();
-        DbInitializer.Initialize(dbContext);
+        var services = scope.ServiceProvider;
+        try
+        {
+            var dbContext = services.GetRequiredService<ApplicationDbContext>();
+            DbInitializer.Initialize(dbContext);
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred while seeding the database asynchronously.");
+        }
     }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
-    }
-}
+});
 
 // Configure HTTP Middleware Pipeline
 app.UseMiddleware<ExceptionMiddleware>();
