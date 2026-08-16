@@ -17,6 +17,37 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
     });
 
+// Helper function to convert Postgres URI format to standard connection string
+string ConvertPostgresUriToConnectionString(string? uriStr)
+{
+    if (string.IsNullOrWhiteSpace(uriStr)) return string.Empty;
+    
+    uriStr = uriStr.Trim().TrimEnd('.');
+
+    if (!uriStr.StartsWith("postgresql://", StringComparison.OrdinalIgnoreCase) && 
+        !uriStr.StartsWith("postgres://", StringComparison.OrdinalIgnoreCase))
+    {
+        return uriStr;
+    }
+
+    try
+    {
+        var uri = new Uri(uriStr);
+        var userInfo = uri.UserInfo.Split(':');
+        var username = userInfo[0];
+        var password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : "";
+        var host = uri.Host;
+        var port = uri.Port > 0 ? uri.Port : 5432;
+        var database = uri.AbsolutePath.TrimStart('/');
+
+        return $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true;";
+    }
+    catch
+    {
+        return uriStr;
+    }
+}
+
 // Helper function to validate Npgsql connection string
 bool IsValidNpgsqlConnectionString(string? connStr)
 {
@@ -43,9 +74,10 @@ bool IsValidNpgsqlConnectionString(string? connStr)
 
 // Configure Database Connection (SQL Server or Supabase PostgreSQL)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var supabaseConnectionString = Environment.GetEnvironmentVariable("SUPABASE_DB_CONNECTION_STRING") 
+var rawSupabaseConnectionString = Environment.GetEnvironmentVariable("SUPABASE_DB_CONNECTION_STRING") 
     ?? builder.Configuration.GetConnectionString("SupabaseConnection");
 
+var supabaseConnectionString = ConvertPostgresUriToConnectionString(rawSupabaseConnectionString);
 bool isSupabaseConfigured = IsValidNpgsqlConnectionString(supabaseConnectionString);
 Console.WriteLine($"Supabase connection configured: {(isSupabaseConfigured ? "YES" : "NO")}");
 
