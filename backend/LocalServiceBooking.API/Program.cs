@@ -236,8 +236,15 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Serve React static frontend files
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 
 app.MapGet("/healthz", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+
+// Handle React Router SPA client-side routing fallback
+app.MapFallbackToFile("index.html");
 
 app.Run();
