@@ -32,6 +32,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=backend-build /app/out .
 
+# Prevent inotify file descriptor exhaustion in container environment
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+
 EXPOSE 5000
 
 # Render dynamically injects PORT environment variable

@@ -9,21 +9,13 @@ namespace LocalServiceBooking.API.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            bool tablesExist = false;
             try
             {
-                _ = context.Users.FirstOrDefault();
-                tablesExist = true;
+                context.Database.EnsureCreated();
             }
-            catch (Exception ex) when (ex.ToString().Contains("42P01") || ex.ToString().Contains("does not exist"))
+            catch (Exception ex)
             {
-                tablesExist = false;
-            }
-
-            if (!tablesExist)
-            {
-                var databaseCreator = (IRelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
-                databaseCreator.CreateTables();
+                Console.WriteLine($"Database schema check: {ex.Message}");
             }
 
             if (context.Users.Any())
