@@ -1,7 +1,7 @@
 services:
   - type: web
     name: local-service-booking-platform
-    runtime: docker
+    env: docker
     plan: free
     dockerfilePath: backend/LocalServiceBooking.API/Dockerfile
     dockerContext: .
@@ -15,5 +15,3 @@ services:
         value: "LocalServiceBookingAPI"
       - key: JwtSettings__Audience
         value: "LocalServiceBookingClient"
-      - key: PORT
-        value: 10000
