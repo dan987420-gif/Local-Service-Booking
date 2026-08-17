@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: local-service-booking-frontend
+    runtime: static
+    plan: free
+    rootDir: frontend/local-service-booking
+    buildCommand: npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://local-service-booking-fm3u.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
