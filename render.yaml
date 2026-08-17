@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: local-service-booking-frontend
+    name: local-service-booking
     runtime: static
     rootDir: frontend/local-service-booking
     buildCommand: npm run build
