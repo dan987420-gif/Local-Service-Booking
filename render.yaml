@@ -5,7 +5,7 @@ services:
     plan: free
     rootDir: frontend/local-service-booking
     buildCommand: npm run build
-    publishDir: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         value: https://local-service-booking-fm3u.onrender.com/api
