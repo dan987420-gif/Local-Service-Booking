@@ -124,6 +124,10 @@ if (string.IsNullOrEmpty(secretKey) || secretKey == "YOUR_SUPER_SECRET_KEY_HERE"
 {
     throw new InvalidOperationException("JWT SecretKey is not configured.");
 }
+if (secretKey.Length < 16)
+{
+    throw new InvalidOperationException("JWT SecretKey must be at least 16 characters (128 bits) long. Please configure a stronger key (e.g., in your environment variables).");
+}
 var key = Encoding.UTF8.GetBytes(secretKey);
 
 builder.Services.AddAuthentication(options =>
