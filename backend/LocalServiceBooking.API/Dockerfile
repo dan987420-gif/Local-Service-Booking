@@ -1,23 +1,38 @@
-# Stage 1: Build the application
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+# Stage 1: Build the React frontend
+FROM node:20 AS frontend-build
+WORKDIR /frontend
+
+# Copy package files and install dependencies
+COPY frontend/local-service-booking/package*.json ./
+RUN npm install
+
+# Copy frontend source and build static assets
+COPY frontend/local-service-booking/ ./
+RUN npm run build
+
+# Stage 2: Build the C# backend application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS backend-build
 WORKDIR /app
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
+# Copy csproj and restore
+COPY backend/LocalServiceBooking.API/*.csproj ./
 RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
+# Copy backend source
+COPY backend/LocalServiceBooking.API/ ./
+
+# Copy compiled React assets from Stage 1 into the wwwroot folder
+COPY --from=frontend-build /frontend/dist ./wwwroot
+
+# Publish the C# application
 RUN dotnet publish -c Release -o out
 
-# Stage 2: Build runtime image
+# Stage 3: Build final runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=backend-build /app/out .
 
-# Expose port 80/5000 (informative metadata)
 EXPOSE 5000
 
-# Render dynamically injects a PORT environment variable.
-# We bind to all interfaces (0.0.0.0) on the Render-assigned port, defaulting to 5000.
+# Render dynamically injects a PORT environment variable
 ENTRYPOINT ["sh", "-c", "dotnet LocalServiceBooking.API.dll --urls http://0.0.0.0:${PORT:-5000}"]
