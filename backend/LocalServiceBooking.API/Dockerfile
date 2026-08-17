@@ -32,7 +32,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=backend-build /app/out .
 
-ENV PORT=8080
-EXPOSE 8080
+EXPOSE 5000
 
-ENTRYPOINT ["sh", "-c", "dotnet LocalServiceBooking.API.dll --urls http://0.0.0.0:${PORT:-8080}"]
+# Render dynamically injects PORT environment variable
+ENTRYPOINT ["sh", "-c", "dotnet LocalServiceBooking.API.dll --urls http://0.0.0.0:${PORT:-5000}"]
