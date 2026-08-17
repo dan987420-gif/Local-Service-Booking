@@ -1,5 +1,16 @@
 # ServiceConnect - Local Service Booking Platform
 
+[![Deploy to Render](https://img.shields.io/badge/Render-Live_App-brightgreen?logo=render)](https://local-service-booking-platform-q3w7.onrender.com/)
+[![Swagger API Explorer](https://img.shields.io/badge/Swagger-API_Docs-blue?logo=swagger)](https://local-service-booking-platform-q3w7.onrender.com/swagger)
+[![Health Status](https://img.shields.io/badge/Health-Healthy-success)](https://local-service-booking-platform-q3w7.onrender.com/healthz)
+
+### 🌐 Live Production Links
+- 🚀 **Live Production Application**: [https://local-service-booking-platform-q3w7.onrender.com/](https://local-service-booking-platform-q3w7.onrender.com/)
+- 📜 **Interactive Swagger API Explorer**: [https://local-service-booking-platform-q3w7.onrender.com/swagger](https://local-service-booking-platform-q3w7.onrender.com/swagger)
+- 🏥 **Health Check Endpoint**: [https://local-service-booking-platform-q3w7.onrender.com/healthz](https://local-service-booking-platform-q3w7.onrender.com/healthz)
+
+---
+
 ServiceConnect is a modern, full-stack local service booking web application built using **ASP.NET Core Web API** and **React + Vite**. It enables customers to find, chat, live-track, and book local service providers (electricians, plumbers, cleaners, etc.), while allowing providers to manage listings, verification (KYC), availability, and track their dynamic **Trust Score**.
 
 ---
@@ -19,7 +30,7 @@ ServiceConnect is a modern, full-stack local service booking web application bui
 ## 💻 Tech Stack
 
 - **Backend**: ASP.NET Core Web API, Entity Framework Core, JWT Authentication, Swagger API Docs.
-- **Database**: Microsoft SQL Server.
+- **Database**: PostgreSQL / EF Core InMemory fallback.
 - **Frontend**: React (Vite), Tailwind CSS, Lucide Icons, Axios.
 - **PWA Capabilities**: Service Worker caching, Web App Manifest.
 
@@ -31,7 +42,7 @@ ServiceConnect is a modern, full-stack local service booking web application bui
 graph TD
     Client[React Frontend / PWA] -->|HTTPS Requests / JWT| Gateway[ASP.NET Core Web API]
     Gateway -->|JWT Authorization Filter| Controllers[Controllers Layer]
-    Controllers -->|Entity Framework Core| DB[(SQL Server Database)]
+    Controllers -->|Entity Framework Core| DB[(Database / EF Core)]
     Gateway -->|Services Layer| Trust[TrustScore & Recommendations Service]
 ```
 
@@ -47,17 +58,7 @@ graph TD
 
 ## 🚀 Local Setup Instructions
 
-### 1. Database Configuration
-1. Ensure Local SQL Server is running.
-2. The database connection is configured in `backend/LocalServiceBooking.API/appsettings.json` under `ConnectionStrings:DefaultConnection`. It defaults to:
-   ```json
-   "Server=localhost;Database=LocalServiceBooking;Trusted_Connection=True;TrustServerCertificate=True;"
-   ```
-3. Run the database seed SQL scripts inside the `/database` directory to initialize mock data and schema structures:
-   - [`create_history_table.sql`](database/create_history_table.sql)
-   - [`seed_status_history.sql`](database/seed_status_history.sql)
-
-### 2. Run the Backend API
+### 1. Run the Backend API
 1. Navigate to the backend directory:
    ```bash
    cd backend/LocalServiceBooking.API
@@ -68,7 +69,7 @@ graph TD
    ```
 3. The server will launch and listen on `http://localhost:5000`. You can inspect the interactive Swagger API docs at `http://localhost:5000/swagger`.
 
-### 3. Run the Frontend React App
+### 2. Run the Frontend React App
 1. Navigate to the frontend directory:
    ```bash
    cd frontend/local-service-booking
@@ -81,22 +82,4 @@ graph TD
    ```bash
    npm run dev
    ```
-4. The frontend will start on `http://localhost:5173` (or `http://localhost:5174` if 5173 is occupied).
-
----
-
-## 🔐 Presentation Credentials
-
-Use a locally configured test account. Do not publish passwords in the repository.
-
----
-
-## 🛡 Security & Deployment Guidelines
-
-1. **Independent Hosting**:
-   - Build frontend assets using `npm run build` and deploy to statically hosted CDNs (Netlify, Vercel, Firebase Hosting).
-   - Package the backend container using Docker or host on ASP.NET Cloud platforms (Azure App Service, AWS Elastic Beanstalk).
-2. **Environment Variables**:
-   - Overwrite CORS Allowed Origins by setting `AllowedOrigins` variable in server settings (e.g. `AllowedOrigins="https://myfrontend.com"`).
-   - Override database connections using `ConnectionStrings__DefaultConnection`.
-   - Update the JWT Secret key via environment settings (`JwtSettings__SecretKey`).
+4. The frontend will start on `http://localhost:5173`.
