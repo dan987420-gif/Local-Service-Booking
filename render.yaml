@@ -2,7 +2,6 @@ services:
   - type: web
     name: local-service-booking-frontend
     runtime: static
-    plan: free
     rootDir: frontend/local-service-booking
     buildCommand: npm run build
     staticPublishPath: dist
