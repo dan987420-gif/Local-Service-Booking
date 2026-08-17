@@ -1,14 +1,18 @@
 services:
   - type: web
-    name: local-service-booking
-    runtime: static
-    rootDir: frontend/local-service-booking
-    buildCommand: npm run build
-    staticPublishPath: dist
+    name: local-service-booking-app
+    runtime: docker
+    plan: free
+    dockerfilePath: backend/LocalServiceBooking.API/Dockerfile
+    healthCheckPath: /healthz
     envVars:
-      - key: VITE_API_URL
-        value: https://local-service-booking-fm3u.onrender.com/api
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+      - key: SUPABASE_DB_CONNECTION_STRING
+        sync: false
+      - key: JwtSettings__SecretKey
+        value: "SecretKeyForLocalServiceBookingApplication2026!"
+      - key: JwtSettings__Issuer
+        value: "LocalServiceBookingAPI"
+      - key: JwtSettings__Audience
+        value: "LocalServiceBookingClient"
+      - key: PORT
+        value: 10000
