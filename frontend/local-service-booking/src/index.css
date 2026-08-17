@@ -276,6 +276,7 @@ body {
 .premium-gradient-text {
   background: linear-gradient(135deg, #6366F1 0%, #14B8A6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .btn-glow {

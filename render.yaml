@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: local-service-booking-app
+    name: local-service-booking
     runtime: docker
     plan: free
     dockerfilePath: backend/LocalServiceBooking.API/Dockerfile
