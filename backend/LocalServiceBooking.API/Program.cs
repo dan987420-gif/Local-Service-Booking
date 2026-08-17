@@ -171,8 +171,15 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Local Service Booking API (ServiceConnect)",
         Version = "v1",
-        Description = "ASP.NET Core Web API for ServiceConnect Local Service Booking Application"
+        Description = "ASP.NET Core Web API for ServiceConnect Local Service Booking Application. Tracks all Users, Join Dates, Bookings, Status History, Ratings, Complaints, and Notifications."
     });
+
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
