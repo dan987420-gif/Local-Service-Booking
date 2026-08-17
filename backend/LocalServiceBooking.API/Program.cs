@@ -103,16 +103,21 @@ var supabaseConnectionString = SanitizeSupabaseConnectionString(rawSupabaseConne
 Console.WriteLine($"Database Config - Raw: {MaskConnectionString(rawSupabaseConnectionString)}");
 Console.WriteLine($"Database Config - Sanitized: {MaskConnectionString(supabaseConnectionString)}");
 
-if (string.IsNullOrWhiteSpace(supabaseConnectionString))
+if (string.IsNullOrWhiteSpace(supabaseConnectionString) || supabaseConnectionString.Contains("your-project-ref.supabase.co", StringComparison.OrdinalIgnoreCase))
 {
-    Console.WriteLine("WARNING: Database connection string 'SupabaseConnection' is not configured. Database operations will fail.");
-    supabaseConnectionString = "Host=localhost;Database=postgres;Username=postgres;Password=postgres;";
+    Console.WriteLine("WARNING: Supabase DB connection string is unconfigured or placeholder. Using EF Core InMemory Database fallback for local testing.");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    {
+        options.UseInMemoryDatabase("LocalServiceBookingDb");
+    });
 }
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+else
 {
-    options.UseNpgsql(supabaseConnectionString);
-});
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    {
+        options.UseNpgsql(supabaseConnectionString);
+    });
+}
 
 // Configure Scoped Services
 builder.Services.AddScoped<JwtService>();
