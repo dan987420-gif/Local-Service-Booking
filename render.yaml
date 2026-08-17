@@ -4,6 +4,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: backend/LocalServiceBooking.API/Dockerfile
+    dockerContext: .
     healthCheckPath: /healthz
     envVars:
       - key: SUPABASE_DB_CONNECTION_STRING
