@@ -15,3 +15,5 @@ services:
         value: "LocalServiceBookingAPI"
       - key: JwtSettings__Audience
         value: "LocalServiceBookingClient"
+      - key: PORT
+        value: 8080
