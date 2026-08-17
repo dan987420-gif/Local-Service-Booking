@@ -66,6 +66,10 @@ string SanitizeSupabaseConnectionString(string? connStr)
             {
                 dbBuilder.Username = "postgres.yyiptgonfedomzcttjvo";
             }
+            if (dbBuilder.Port == 6543)
+            {
+                dbBuilder.Port = 5432; // Switch to Session Mode Pooler to avoid transaction failures
+            }
         }
         return dbBuilder.ToString();
     }
